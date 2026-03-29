@@ -35,7 +35,7 @@ This project simulates a basic store where users can view products, manage a car
 
 1. Clone the repository:
 
-git clone https://github.com/yuvrajkushwaha01/smart-store-billing-system.git
+git clone https://github.com/yuvrajkushwaha01/smart-store-billing-system-using-python.git
 2. Navigate to the folder:
 
 cd smart-store-billing-system-using-python
