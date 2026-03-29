@@ -1,0 +1,78 @@
+# storing data in dictionary with their price and stock using nested dict
+stock = {
+    "laptop": {"price": 45000, "stock": 10},
+    "mobile": {"price": 18000, "stock": 15},
+    "headphone": {"price": 3000, "stock": 50},
+    "tablet": {"price": 25000, "stock": 20},
+    "charger": {"price": 1800, "stock": 50}}
+#Cart is empty here
+cart = {}
+while True:
+    print("1.View Products")
+    print("2.Add Product to Cart")
+    print("3.Remove Product from Cart")
+    print("4.Generate Bill & Exit")
+
+    #Taking user choice
+    userchoice = input("Enter your choice from above menu!: ")
+    #showing all available product in store
+    if userchoice == "1":
+        print("All available Products:")
+        for item, details in stock.items():
+            print(item, "- Price:", details["price"], "| Stock:", details["stock"])
+    #Here user enter the product he want to buy
+    elif userchoice == "2":
+        product = input("Enter product name: ").lower()
+
+        if product in stock:
+            qty = int(input("Enter Quantity: "))
+
+            if qty <= stock[product]["stock"]:
+                cart[product] = cart.get(product, 0) + qty
+                stock[product]["stock"] -= qty
+                print("Product added successfully")
+            else:
+                print("Not enough stock! Come back later")
+        else:
+            print("Product not found!")
+    #Here enters that product which are user want to remove from cart
+    elif userchoice == "3":
+        product = input("Enter product name to remove: ").lower()
+
+        if product in cart:
+            qty = int(input("Enter quantity to remove: "))
+
+            if qty >= cart[product]:
+                del cart[product]
+            else:
+                cart[product] -= qty
+
+            stock[product]["stock"] += qty
+            print("Product removed from cart")
+        else:
+            print("Product not in cart!")
+    
+    #after user select the product user choose from menu to generate bill
+    elif userchoice == "4":
+        print("----- BILL -----")
+        total = 0
+
+        for item, qty in cart.items():
+            price = stock[item]["price"]
+            amount = price * qty
+            total += amount
+            print(item, "x", qty, "=", amount)
+
+
+        #Tax calculation default 18% GST on all items
+        gst = total * 0.18
+        final_total = total + gst
+
+        print("Subtotal:", total)
+        print("GST (18%):", gst)
+        print("Final Bill:", final_total)
+        print("Thank you for shopping with us!")
+        break
+
+    else:
+        print("Invalid choice! Please try again and select product that's are available in store")
